@@ -1,7 +1,25 @@
-#test{
+#accent{
 
-background-color: blueviolet;
+background-color: #17a2b8;
 width: auto;
-height: auto;
+height: 24px;
 
 }
+
+
+#accent2{
+
+    background-color: #ffc107;
+    width: auto;
+    height: 24px;
+    
+    }
+
+#SaveBtn, #commentBtn, #deleteBtn{
+
+float: right;
+
+
+
+}
+

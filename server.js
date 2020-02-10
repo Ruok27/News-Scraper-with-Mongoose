@@ -36,6 +36,13 @@ res.render("index");
 
 })
 
+server.get("/saved", function(req, res){
+
+    res.render("saved");
+    
+    
+    })
+
 
 
 server.listen(PORT, function(){
