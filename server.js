@@ -8,46 +8,87 @@ var logger = require("morgan");
 
 //Requires
 
-
-
-
-
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-
-
-
-
-let server = express();
-server.use(express.static("public"));
-
-
-mongoose.connect(MONGODB_URI);
+//go back to this
+let db = require("./models");
 
 let PORT = process.env.PORT || 3000;
 
-server.engine("handlebars", handlebars({defaultLayout: "main"}));
+let server = express();
+
+
+server.use(logger("dev"));
+
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+server.use(express.static("public"));
+
+
+//might need to get rid of /mongoheadlines which might be the name of the mongo table
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+
+
+
+
+
+
+server.engine("handlebars", handlebars({ defaultLayout: "main" }));
 server.set("view engine", "handlebars");
 
-server.get("/", function(req, res){
+server.get("/", function (req, res) {
 
-res.render("index");
+
+    axios.get("http://www.echojs.com/").then(function (res) {
+
+        let $ = cheerio.load(res.data);
+        $("article h2").each(function (i, element) {
+
+            let result = {};
+
+            result.title = $(this).children("a").text();
+
+            result.link = $(this).children.attr("href");
+
+            db.Article.create(result).then(function (dbArticle) {
+
+                console.log(dbArticle);
+
+
+            }).catch(function (err) {
+
+                console.log(err)
+
+
+            });
+
+
+
+        });
+
+
+
+
+    })
+
+    res.render("index");
 
 
 })
 
-server.get("/saved", function(req, res){
+server.get("/saved", function (req, res) {
 
     res.render("saved");
-    
-    
-    })
+
+
+})
 
 
 
-server.listen(PORT, function(){
+server.listen(PORT, function () {
 
-console.log(`Server listening on: http://localhost:${PORT}`)
+    console.log(`Server listening on: http://localhost:${PORT}`)
 
 
 });
