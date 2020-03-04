@@ -2,7 +2,7 @@
 <div class = "container">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Mongo Scraper</a>
+  <a class="navbar-brand" href="/">Mongo Scraper</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,8 +10,8 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/saved">Saved Articles</a>
-      <button type="button" class="btn btn-outline-primary btn-sm">Scrape Articles</button>
-      <button type="button" class="btn btn-outline-danger btn-sm">Clear Articles</button>
+      <button type="button" href = "/scrape" class="btn btn-outline-primary btn-sm"><a href = "/scrape">Scrape Articles</a></button>
+      <button type="button" href = "/clear" class="btn btn-outline-danger btn-sm">  <a href = "/clear">Clear Articles</a></button>
     </div>
   </div>
 </nav>
@@ -22,22 +22,28 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Insert Name Here</h1>
-    <p class="lead">Save your articles here instructions</p>
+    <h1 class="display-4">Psychology Today Article Scraper</h1>
+    <p class="lead">Hit the blue button to scrape its latest articles. Visit articles saved to read later in the saved page </p>
   </div>
 </div>
 
-      <div class="newsHolder">
+      <div class="results">
+       
 
-<div class="card">
-  <div class="card-header bg-info">
-    Featured
+<div article-id={{_id}} class="card">
+ {{#each results}}
+  <div  class="card-header bg-info">
+    <a class="card-title" href={{link}} target="_blank">{{title}}</a>
+    <p class="card-text">{{description}}</p>
   </div>
   <div class="card-body">
-    This is some text within a card body.
+    
     <button type="button" id = "SaveBtn" class="btn btn-outline-success"> Save Article</button>
   </div>
+
 </div>
+
+{{/each}}
 
       </div>
 

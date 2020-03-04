@@ -1,8 +1,8 @@
 let mongoose = require("mongoose");
 
 let Schema = mongoose.Schema;
-//revisit this
-//js website json change to nytimes later
+
+
 
 let ArticleSchema = new Schema({
 
@@ -14,6 +14,13 @@ required: true
 link:{
 type: String,
 required: true
+},
+
+description: {
+
+type: String,
+required: true
+
 },
 
 note:{
